@@ -114,9 +114,9 @@ namespace BRichTextBox
 
 			if (addDate || AddDate)                                                                        // Date if wanted
 			{
-				SelectionStart  = TextLength;
+				SelectionStart = TextLength;
 				SelectionLength = text.Length;
-				SelectionColor  = Color.Blue;
+				SelectionColor = Color.Blue;
 				AppendText(System.DateTime.Now.ToString() + ": ");
 			}
 
@@ -128,18 +128,19 @@ namespace BRichTextBox
 			if (!autoscroll)
 				SuspendPainting();
 
-			SelectionStart  = TextLength;              // Set fore color
+			SelectionStart = TextLength;              // Set fore color
 			SelectionLength = 0;
-			SelectionColor  = color;
+			SelectionColor = color;
 			AppendText(text);
-			SelectionColor  = ForeColor;               // Return default color
+			SelectionColor = ForeColor;               // Return default color
 
 			if (!autoscroll)
 				ResumePainting();
 			else
+			{
 				SelectionStart = Text.Length;
-
-			ScrollToCaret();
+				ScrollToCaret();
+			}
 		}
 	}
 }
