@@ -33,9 +33,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BRichTextBox, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\BRichTextBox.1.0.4\BRichTextBox.dll</HintPath>
+    <Reference Include="BRichTextBox, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\BRichTextBox.1.0.5\lib\net40\BRichTextBox.dll</HintPath>
     </Reference>
     <Reference Include="ExtendedRichTextBox, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\ExtendedRichTextBox.1.1.0\lib\net40\ExtendedRichTextBox.dll</HintPath>
@@ -95,9 +94,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="README.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
