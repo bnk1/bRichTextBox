@@ -22,7 +22,7 @@ namespace BRichExample
             BRichTextBox1.AutoScroll = AutoScrollTb.Checked;
         }
 
-        private void button1_Click(Object sender, EventArgs e)
+        private void Enter_Click(Object sender, EventArgs e)
         {
             BRichTextBox1.AddDate = true;
             BRichTextBox1.AppendLine(textBox1.Text + " " + count++, colorDialog1.Color);
@@ -33,7 +33,7 @@ namespace BRichExample
             BRichTextBox1.AutoScroll = ((CheckBox)sender).Checked;
         }
 
-        private void ColorB_Click(Object sender, EventArgs e)
+        private void TextColorLabel_Click(Object sender, EventArgs e)
         {
             colorDialog1.ShowDialog();
 
@@ -44,7 +44,7 @@ namespace BRichExample
         {
             //bSetColor.BackColor = bSetColor.BackColor;
 
-            bSetColor.SetForeColorWithAutoBack(color);
+            TextColorLabel.SetForeColorWithAutoBack(color);
 
             //bSetColor.BackColor = SystemColors.ButtonFace;
             //bSetColor.UseVisualStyleBackColor = true;
@@ -58,6 +58,15 @@ namespace BRichExample
             public bool HadCustomBackColor { get; set; }
             public Color BackColor { get; set; }
             public bool UseVisualStyleBackColor { get; set; }
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                Enter_Click(sender, e);
+                e.Handled = true;
+            }
         }
     }
 }

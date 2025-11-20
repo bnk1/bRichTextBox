@@ -5,124 +5,108 @@ using System.Windows.Forms;
 
 namespace ButtonBackColorExtensions
 {
-    internal sealed class ButtonColorState
+    internal sealed class LabelColorState
     {
         public Color OriginalBackColor { get; set; }
-        public bool OriginalUseVisualStyleBackColor { get; set; }
         public bool OverrideApplied { get; set; }
     }
 
-    public static class ButtonBackColorExtensions
+    public static class LabelBackColorExtensions
     {
-        // Per-button storage that doesn’t leak and doesn’t use Tag
-        private static readonly ConditionalWeakTable<Button, ButtonColorState> _stateTable
-            = new ConditionalWeakTable<Button, ButtonColorState>();
+        private static readonly ConditionalWeakTable<Label, LabelColorState> _stateTable
+            = new ConditionalWeakTable<Label, LabelColorState>();
 
         /// <summary>
-        /// Set ForeColor and then ensure the BackColor is readable.
-        /// Uses original BackColor unless the text is not visible.
+        /// Set ForeColor and then adjust BackColor if needed:
+        /// - Keep original BackColor if contrast is OK
+        /// - Otherwise switch BackColor to high-contrast (black/white)
         /// </summary>
-        public static void SetForeColorWithAutoBack(this Button btn, Color foreColor)
+        public static void SetForeColorWithAutoBack(this Label lbl, Color foreColor)
         {
-            if (btn == null)
-                throw new ArgumentNullException(nameof(btn));
+            if (lbl == null)
+            {
+                throw new ArgumentNullException(nameof(lbl));
+            }
 
-            btn.ForeColor = foreColor;
-            btn.EnsureReadableBackColor();
+            lbl.ForeColor = foreColor;
+            lbl.EnsureAutoBackContrast();
         }
 
         /// <summary>
-        /// Uses the original BackColor unless the text is not visible.
-        /// Only then overrides BackColor with a high-contrast color.
+        /// Uses the original BackColor unless the text is not readable.
+        /// If contrast is bad, changes BackColor to black/white.
         /// </summary>
-        public static void EnsureReadableBackColor(this Button btn)
+        public static void EnsureAutoBackContrast(this Label lbl)
         {
-            if (btn == null)
-                throw new ArgumentNullException(nameof(btn));
-
-            ButtonColorState state = GetOrCreateState(btn);
-            Color originalBack = state.OriginalBackColor;
-            Color fore = btn.ForeColor;
-
-            // If text is readable on the original background:
-            if (IsReadable(fore, originalBack))
+            if (lbl == null)
             {
-                // If we previously overrode, revert once; otherwise, leave it alone.
+                throw new ArgumentNullException(nameof(lbl));
+            }
+
+            LabelColorState state = GetOrCreateState(lbl);
+
+            Color originalBack = state.OriginalBackColor;
+
+            // Effective background: if Transparent, use parent's back color
+            Color effectiveBack = originalBack;
+            if (originalBack == Color.Transparent && lbl.Parent != null)
+            {
+                effectiveBack = lbl.Parent.BackColor;
+            }
+
+            Color fore = lbl.ForeColor;
+
+            // If readable on original background → restore original (if needed) and exit
+            if (IsReadable(fore, effectiveBack))
+            {
                 if (state.OverrideApplied)
                 {
-                    RestoreOriginalBackInternal(btn, state);
+                    lbl.BackColor = state.OriginalBackColor;
                     state.OverrideApplied = false;
                 }
 
-                // Important: do NOT set BackColor if we never changed it.
                 return;
             }
 
-            // Text is not readable on the original background → override
+            // Not readable → choose a better background (black or white)
             Color newBack = GetHighContrastBackColor(fore);
 
-            if (!state.OverrideApplied ||
-                btn.BackColor != newBack ||
-                btn.UseVisualStyleBackColor)
-            {
-                btn.UseVisualStyleBackColor = false;
-                btn.BackColor = newBack;
-                state.OverrideApplied = true;
-            }
+            lbl.BackColor = newBack;
+            state.OverrideApplied = true;
         }
 
         /// <summary>
-        /// Explicitly restores the original background (and clears any override).
+        /// Explicitly restore the original BackColor.
         /// </summary>
-        public static void RestoreOriginalBackColor(this Button btn)
+        public static void RestoreOriginalBackColor(this Label lbl)
         {
-            if (btn == null)
+            if (lbl == null)
             {
-                throw new ArgumentNullException(nameof(btn));
+                throw new ArgumentNullException(nameof(lbl));
             }
 
-            ButtonColorState state = GetOrCreateState(btn);
-            RestoreOriginalBackInternal(btn, state);
+            LabelColorState state = GetOrCreateState(lbl);
+
+            lbl.BackColor = state.OriginalBackColor;
             state.OverrideApplied = false;
         }
 
         // ================== INTERNAL HELPERS ==================
 
-        private static ButtonColorState GetOrCreateState(Button btn)
+        private static LabelColorState GetOrCreateState(Label lbl)
         {
-            return _stateTable.GetValue(btn, b =>
+            return _stateTable.GetValue(lbl, l =>
             {
-                // This runs only once per button, capturing its true original state.
-                return new ButtonColorState
+                return new LabelColorState
                 {
-                    OriginalBackColor = b.BackColor,
-                    OriginalUseVisualStyleBackColor = b.UseVisualStyleBackColor,
+                    OriginalBackColor = l.BackColor,
                     OverrideApplied = false
                 };
             });
         }
 
-        private static void RestoreOriginalBackInternal(Button btn, ButtonColorState state)
-        {
-            btn.UseVisualStyleBackColor = state.OriginalUseVisualStyleBackColor;
-
-            if (state.OriginalUseVisualStyleBackColor)
-            {
-                // For themed/default background, let WinForms + OS draw it.
-                btn.BackColor = SystemColors.ButtonFace;
-                btn.UseVisualStyleBackColor = true;
-                //btn.ResetBackColor();
-            }
-            else
-            {
-                // Custom original BackColor → restore explicitly.
-                btn.BackColor = state.OriginalBackColor;
-            }
-        }
-
         /// <summary>
-        /// "Readable enough" check.
-        /// Conservative: prefers to keep original background unless it's really bad.
+        /// "Readable enough" check using brightness difference + relaxed contrast.
         /// </summary>
         private static bool IsReadable(Color fore, Color back)
         {
@@ -135,9 +119,9 @@ namespace ButtonBackColorExtensions
                 return true;
             }
 
-            // Fallback to contrast ratio (relaxed threshold)
+            // Fallback contrast ratio (relaxed)
             double ratio = ContrastRatio(fore, back);
-            return ratio >= 2.5; // "visibly OK", not strict WCAG
+            return ratio >= 2.5;
         }
 
         private static double PerceivedBrightness(Color c)
