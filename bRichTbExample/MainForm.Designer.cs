@@ -31,7 +31,7 @@
             this.AddB = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.bRichTextBox1 = new BRichTextBox.BRichTextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.AutoScrollTb = new System.Windows.Forms.CheckBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.ColorB = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -68,24 +68,24 @@
             this.bRichTextBox1.Location = new System.Drawing.Point(4, 4);
             this.bRichTextBox1.Margin = new System.Windows.Forms.Padding(4);
             this.bRichTextBox1.Name = "bRichTextBox1";
-            this.bRichTextBox1.Size = new System.Drawing.Size(828, 205);
+            this.bRichTextBox1.Size = new System.Drawing.Size(828, 116);
             this.bRichTextBox1.TabIndex = 3;
             this.bRichTextBox1.Text = "";
             // 
-            // checkBox1
+            // AutoScrollTb
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.checkBox1.Location = new System.Drawing.Point(4, 259);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(828, 29);
-            this.checkBox1.TabIndex = 4;
-            this.checkBox1.Text = "Auto Scroll";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.AutoScrollTb.AutoSize = true;
+            this.AutoScrollTb.Checked = true;
+            this.AutoScrollTb.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.AutoScrollTb.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.AutoScrollTb.Location = new System.Drawing.Point(4, 129);
+            this.AutoScrollTb.Margin = new System.Windows.Forms.Padding(4);
+            this.AutoScrollTb.Name = "AutoScrollTb";
+            this.AutoScrollTb.Size = new System.Drawing.Size(828, 29);
+            this.AutoScrollTb.TabIndex = 4;
+            this.AutoScrollTb.Text = "Auto Scroll";
+            this.AutoScrollTb.UseVisualStyleBackColor = true;
+            this.AutoScrollTb.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // ColorB
             // 
@@ -107,14 +107,14 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.bRichTextBox1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.checkBox1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.AutoScrollTb, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1186, 292);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1186, 162);
             this.tableLayoutPanel1.TabIndex = 6;
             // 
             // tableLayoutPanel2
@@ -130,7 +130,7 @@
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(344, 207);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(344, 118);
             this.tableLayoutPanel2.TabIndex = 7;
             // 
             // flowLayoutPanel1
@@ -150,7 +150,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(168F, 168F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1186, 292);
+            this.ClientSize = new System.Drawing.Size(1186, 162);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
@@ -170,7 +170,7 @@
 		private System.Windows.Forms.Button AddB;
 		private System.Windows.Forms.TextBox textBox1;
 		private BRichTextBox.BRichTextBox bRichTextBox1;
-		private System.Windows.Forms.CheckBox checkBox1;
+		private System.Windows.Forms.CheckBox AutoScrollTb;
 		private System.Windows.Forms.ColorDialog colorDialog1;
 		private System.Windows.Forms.Button ColorB;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;

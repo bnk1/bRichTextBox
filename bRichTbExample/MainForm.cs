@@ -18,7 +18,8 @@ namespace BRichTbExample
 		{
 			InitializeComponent();
 			SetColor(colorDialog1.Color);
-		}
+            bRichTextBox1.AutoScroll = AutoScrollTb.Checked;
+        }
 
 		private void button1_Click(Object sender, EventArgs e)
 		{
