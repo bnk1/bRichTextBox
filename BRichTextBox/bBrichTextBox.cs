@@ -163,7 +163,7 @@ namespace BRichTextBox
             if (wantDate)
             {
                 SelectionStart = TextLength;
-				SelectionLength = text.Length;
+                SelectionLength = 0;
                 SelectionColor = Color.Blue;
                 AppendText(DateTime.Now.ToString() + ": ");
             }

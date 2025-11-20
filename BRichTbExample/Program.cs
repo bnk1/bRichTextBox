@@ -16,7 +16,7 @@ namespace BRichTbExample
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new FormBRich());
+			Application.Run(new MainForm());
 		}
 	}
 }
