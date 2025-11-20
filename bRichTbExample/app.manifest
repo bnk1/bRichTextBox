@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<assembly manifestVersion="1.0" xmlns="urn:schemas-microsoft-com:asm.v1">
+  <assemblyIdentity version="1.0.0.0" name="bRichExample.app"/>
+
+  <application xmlns="urn:schemas-microsoft-com:asm.v3">
+    <asmv3:windowsSettings
+      xmlns="http://schemas.microsoft.com/SMI/2005/WindowsSettings"
+      xmlns:asmv3="urn:schemas-microsoft-com:asm.v3">
+      <dpiAware>true/pm</dpiAware>
+    </asmv3:windowsSettings>
+  </application>
+</assembly>

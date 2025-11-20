@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BRichTbExample
+namespace bRichExample
 {
 	internal static class Program
 	{
@@ -16,6 +16,7 @@ namespace BRichTbExample
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
+
 			Application.Run(new MainForm());
 		}
 	}
