@@ -1,4 +1,4 @@
-﻿namespace bRichExample
+﻿namespace BRichExample
 {
 	partial class MainForm
 	{

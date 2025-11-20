@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{6CB2142F-1CE6-409C-AF47-AB43E0A7ABD4}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>bRichExample</RootNamespace>
-    <AssemblyName>bRichExample</AssemblyName>
+    <RootNamespace>BRichExample</RootNamespace>
+    <AssemblyName>BRichExample</AssemblyName>
     <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -37,9 +37,8 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="bRichTextBox, Version=1.0.5.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\bRichTextBox\bin\Release\net462\bRichTextBox.dll</HintPath>
+    <Reference Include="BRichTextBox, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\BRichTextBox.1.0.6\lib\net462\BRichTextBox.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -77,6 +76,7 @@
     </Compile>
     <None Include=".editorconfig" />
     <None Include="app.manifest" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
