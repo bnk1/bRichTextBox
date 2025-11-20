@@ -8,9 +8,9 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <!-- <icon>icon.png</icon> -->
-    <description>Extened RichTextBox with auto scroll, append line, append exc and auto date</description>
+    <description>Extened RichTextBox with auto scroll, append line, append exc and auto date.</description>
     <releaseNotes></releaseNotes>
-    <copyright>Copyright 2022</copyright>
+    <copyright>Copyright 2025</copyright>
     <tags>RichTextBox RichTextBoxExtended RichTextBoxExt ExtendedRichTextBox</tags>
 	<dependencies> 
 		<group targetFramework=".NETFramework4.0" />
