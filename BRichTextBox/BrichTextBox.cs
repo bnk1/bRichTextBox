@@ -105,7 +105,7 @@ namespace BRichTextBox
 
 			if (InvokeRequired)
 			{
-				BeginInvoke(new Action<string, Color?, bool, bool, bool, bool>(AppendTextBox), new object[] { text, color, printPrefix, newlinePre, forceAutoScroll, addDate });
+				BeginInvoke(new Action<string, Color?, bool, bool, bool, bool>(AppendTextBox), [text, color, printPrefix, newlinePre, forceAutoScroll, addDate]);
 				return;
 			}
 
