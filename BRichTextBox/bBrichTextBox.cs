@@ -1,146 +1,203 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace BRichTextBox
 {
-	public partial class BRichTextBox : RichTextBox
-	{
-		Point  _ScrollPoint;
-		bool   _Painting      = true;
-		IntPtr _EventMask;
-		int    _SuspendIndex  = 0;
-		int    _SuspendLength = 0;
-		public bool AutoScroll { get ; set; } = false;
-		public bool AddDate { get; set; } = false;
+    [ToolboxItem(true)]
+    public partial class BRichTextBox : RichTextBox
+    {
+        private Point  _ScrollPoint;
+        private bool   _Painting      = true;
+        private IntPtr _EventMask;
+        private int    _SuspendIndex  = 0;
+        private int    _SuspendLength = 0;
 
-		public BRichTextBox()
-		{
-			InitializeComponent();
-		}
+        /// <summary>
+        /// If true, the control will scroll to the bottom after appending text.
+        /// </summary>
+        [DefaultValue(false)]
+        public bool AutoScroll { get; set; } = false;
 
-		protected override void OnPaint(PaintEventArgs pe)
-		{
-			base.OnPaint(pe);
-		}
+        /// <summary>
+        /// If true, each appended line will start with the current date/time.
+        /// </summary>
+        [DefaultValue(false)]
+        public bool AddDate { get; set; } = false;
 
-		public void AppendExc(Exception exc, bool detailed = false)
-		{
-			if (exc == null)
-				return;
+        public BRichTextBox()
+        {
+            InitializeComponent();
+        }
 
-			AppendLine(exc.Message, Color.Red);
+        protected override void OnPaint(PaintEventArgs pe)
+        {
+            base.OnPaint(pe);
+        }
 
-			if (detailed)
-			{
-				AppendLine("Trace: " + exc.StackTrace);
+        public void AppendExc(Exception exc, bool detailed = false)
+        {
+            if (exc == null)
+            {
+                return;
+            }
 
-				if (exc.InnerException != null)
-					AppendExc(exc.InnerException, detailed);
-			}
-		}
+            AppendLine(exc.Message, Color.Red);
 
-		public void AppendExc(Exception exc)
-		{
-			AppendLine(exc.Message, Color.Red);
-		}
+            if (detailed)
+            {
+                if (!string.IsNullOrEmpty(exc.StackTrace))
+                {
+                    AppendLine("Trace: " + exc.StackTrace, Color.Red);
+                }
 
-		public void AppendErr(string text)
-		{
-			AppendLine(text, Color.Red);
-		}
+                if (exc.InnerException != null)
+                {
+                    AppendExc(exc.InnerException, detailed);
+                }
+            }
+        }
 
-		public void AppendLine(String text, Color? color = null)
-		{
-			AppendTextBox(text + "\n", color);
-		}
+        public void AppendExc(Exception exc)
+        {
+            AppendLine(exc?.Message ?? string.Empty, Color.Red);
+        }
 
-		public bool ReachedBottom()
-		{
-			NativeMethods.SCROLLINFO scrollInfo = new NativeMethods.SCROLLINFO();
-			scrollInfo.cbSize = Marshal.SizeOf(scrollInfo);
+        public void AppendErr(string text)
+        {
+            AppendLine(text, Color.Red);
+        }
 
-			scrollInfo.fMask = 0x10 | 0x1 | 0x2;                                // SIF_RANGE = 0x1, SIF_TRACKPOS = 0x10,  SIF_PAGE= 0x2
-			NativeMethods.GetScrollInfo(Handle, 1, ref scrollInfo);                       // nBar = 1 -> VScrollbar
-			return scrollInfo.max == scrollInfo.nTrackPos + scrollInfo.nPage;
-		}
+        public void AppendLine(string text, Color? color = null)
+        {
+            AppendTextBox(text + Environment.NewLine, color);
+        }
 
+        /// <summary>
+        /// Returns true if the vertical scrollbar is already at the bottom.
+        /// </summary>
+        public bool ReachedBottom()
+        {
+            NativeMethods.SCROLLINFO scrollInfo = new NativeMethods.SCROLLINFO();
+            scrollInfo.cbSize = Marshal.SizeOf(scrollInfo);
+            // SIF_RANGE = 0x1, SIF_TRACKPOS = 0x10, SIF_PAGE = 0x2
+            scrollInfo.fMask = 0x10 | 0x1 | 0x2;
 
-		public void SuspendPainting()
-		{
-			if (_Painting)
-			{
-				_SuspendIndex = SelectionStart;
-				_SuspendLength = SelectionLength;
-				NativeMethods.SendMessage(Handle, NativeMethods.EM_GETSCROLLPOS, 0, ref _ScrollPoint);
-				NativeMethods.SendMessage(Handle, NativeMethods.WM_SETREDRAW, 0, IntPtr.Zero);
-				_EventMask = NativeMethods.SendMessage(Handle, NativeMethods.EM_GETEVENTMASK, 0, IntPtr.Zero);
-				_Painting = false;
-			}
-		}
+            NativeMethods.GetScrollInfo(Handle, 1, ref scrollInfo); // nBar = 1 -> VScrollbar
 
-		public void ResumePainting()
-		{
-			if (!_Painting)
-			{
-				Select(_SuspendIndex, _SuspendLength);
-				NativeMethods.SendMessage(Handle, NativeMethods.EM_SETSCROLLPOS, 0, ref _ScrollPoint);
-				NativeMethods.SendMessage(Handle, NativeMethods.EM_SETEVENTMASK, 0, _EventMask);
-				NativeMethods.SendMessage(Handle, NativeMethods.WM_SETREDRAW, 1, IntPtr.Zero);
-				_Painting = true;
-				Invalidate();
-			}
-		}
+            return scrollInfo.max == scrollInfo.nTrackPos + scrollInfo.nPage;
+        }
 
-		/// <summary>
-		///
-		/// </summary>
-		/// <param name="text"></param>
-		/// <param name="c"></param>
-		/// <param name="newlinePre"> Append in a new line </param>
-		void AppendTextBox(string text, Color? c = null, bool printPrefix = false, bool newlinePre = false, bool forceAutoScroll = false, bool addDate = false)
-		{
-			Color color = c ?? Color.Black;
+        public void SuspendPainting()
+        {
+            if (_Painting)
+            {
+                _SuspendIndex = SelectionStart;
+                _SuspendLength = SelectionLength;
 
-			if (InvokeRequired)
-			{
-				BeginInvoke(new Action<string, Color?, bool, bool, bool, bool>(AppendTextBox), [text, color, printPrefix, newlinePre, forceAutoScroll, addDate]);
-				return;
-			}
+                NativeMethods.SendMessage(Handle, NativeMethods.EM_GETSCROLLPOS, 0, ref _ScrollPoint);
+                NativeMethods.SendMessage(Handle, NativeMethods.WM_SETREDRAW, 0, IntPtr.Zero);
+                _EventMask = NativeMethods.SendMessage(Handle, NativeMethods.EM_GETEVENTMASK, 0, IntPtr.Zero);
+                _Painting = false;
+            }
+        }
 
-			if (newlinePre)
-				AppendText("\n");
+        public void ResumePainting()
+        {
+            if (!_Painting)
+            {
+                Select(_SuspendIndex, _SuspendLength);
+                NativeMethods.SendMessage(Handle, NativeMethods.EM_SETSCROLLPOS, 0, ref _ScrollPoint);
+                NativeMethods.SendMessage(Handle, NativeMethods.EM_SETEVENTMASK, 0, _EventMask);
+                NativeMethods.SendMessage(Handle, NativeMethods.WM_SETREDRAW, 1, IntPtr.Zero);
+                _Painting = true;
+                Invalidate();
+            }
+        }
 
-			if (addDate || AddDate)                                                                        // Date if wanted
-			{
-				SelectionStart = TextLength;
+        /// <summary>
+        /// Internal helper to append colored text (optionally with prefix, date, and auto-scroll).
+        /// </summary>
+        /// <param name="text">Text to append.</param>
+        /// <param name="c">Foreground color (null = default).</param>
+        /// <param name="printPrefix">If true, prepend '&gt;'.</param>
+        /// <param name="newlinePre">If true, prepend a newline before the text.</param>
+        /// <param name="forceAutoScroll">
+        /// If true, forces scroll to bottom even if AutoScroll is false.
+        /// </param>
+        /// <param name="addDate">
+        /// If true, prepend the current date/time (or uses AddDate property).
+        /// </param>
+        private void AppendTextBox(
+            string text,
+            Color? c = null,
+            bool printPrefix = false,
+            bool newlinePre = false,
+            bool forceAutoScroll = false,
+            bool addDate = false)
+        {
+            Color color = c ?? ForeColor;
+
+            if (InvokeRequired)
+            {
+                BeginInvoke(
+                    new Action<string, Color?, bool, bool, bool, bool>(AppendTextBox),
+                    text,
+                    color,
+                    printPrefix,
+                    newlinePre,
+                    forceAutoScroll,
+                    addDate);
+                return;
+            }
+
+            if (newlinePre)
+            {
+                AppendText(Environment.NewLine);
+            }
+
+            bool wantDate = addDate || AddDate;
+
+            if (wantDate)
+            {
+                SelectionStart = TextLength;
 				SelectionLength = text.Length;
-				SelectionColor = Color.Blue;
-				AppendText(System.DateTime.Now.ToString() + ": ");
-			}
+                SelectionColor = Color.Blue;
+                AppendText(DateTime.Now.ToString() + ": ");
+            }
 
-			if (printPrefix)
-				AppendText(">");
+            if (printPrefix)
+            {
+                SelectionStart = TextLength;
+                SelectionLength = 0;
+                SelectionColor = color;
+                AppendText(">");
+            }
 
-			bool autoscroll = forceAutoScroll || AutoScroll;
+            bool autoScrollEffective = forceAutoScroll || AutoScroll;
 
-			if (!autoscroll)
-				SuspendPainting();
+            if (!autoScrollEffective)
+            {
+                SuspendPainting();
+            }
 
-			SelectionStart = TextLength;              // Set fore color
-			SelectionLength = 0;
-			SelectionColor = color;
-			AppendText(text);
-			SelectionColor = ForeColor;               // Return default color
+            SelectionStart = TextLength;
+            SelectionLength = 0;
+            SelectionColor = color;
+            AppendText(text);
+            SelectionColor = ForeColor;
 
-			if (!autoscroll)
-				ResumePainting();
-			else
-			{
-				SelectionStart = Text.Length;
-				ScrollToCaret();
-			}
-		}
-	}
+            if (!autoScrollEffective)
+            {
+                ResumePainting();
+            }
+            else
+            {
+                SelectionStart = TextLength;
+                ScrollToCaret();
+            }
+        }
+    }
 }

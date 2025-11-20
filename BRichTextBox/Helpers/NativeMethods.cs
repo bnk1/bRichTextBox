@@ -3,20 +3,20 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
-
 namespace BRichTextBox
 {
-	public static class NativeMethods
-	{
-		public const int WM_USER = 0x400;
-		public const int WM_SETREDRAW = 0x000B;
-		public const int EM_GETEVENTMASK = WM_USER + 59;
-		public const int EM_SETEVENTMASK = WM_USER + 69;
-		public const int EM_GETSCROLLPOS = WM_USER + 221;
-		public const int EM_SETSCROLLPOS = WM_USER + 222;
-		public const short SWP_NOSIZE = 1;
-		public const short SWP_NOZORDER = 0X4;
-		public const int SWP_SHOWWINDOW = 0x0040;
+    public static class NativeMethods
+    {
+        public const int WM_USER        = 0x400;
+        public const int WM_SETREDRAW   = 0x000B;
+        public const int EM_GETEVENTMASK = WM_USER + 59;
+        public const int EM_SETEVENTMASK = WM_USER + 69;
+        public const int EM_GETSCROLLPOS = WM_USER + 221;
+        public const int EM_SETSCROLLPOS = WM_USER + 222;
+
+        public const short SWP_NOSIZE = 1;
+        public const short SWP_NOZORDER = 0X4;
+        public const int SWP_SHOWWINDOW = 0x0040;
 
 		public struct SCROLLINFO
 		{
