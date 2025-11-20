@@ -66,6 +66,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include=".editorconfig" />
     <None Include="bRichTextBox.nuspec">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
