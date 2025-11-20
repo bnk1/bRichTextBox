@@ -1,0 +1,5 @@
+﻿oy2ls7ahzj5qxjlxoi5qtmqtfdnxw55epiafziaghngtey
+
+dotnet nuget push BRichTextBox.1.0.8.nupkg `
+--api-key oy2ls7ahzj5qxjlxoi5qtmqtfdnxw55epiafziaghngtey`
+--source https://api.nuget.org/v3/index.json
