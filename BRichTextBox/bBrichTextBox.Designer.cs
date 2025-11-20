@@ -1,8 +1,8 @@
 ﻿using System.Windows.Forms;
 
-namespace BRichTextBox
+namespace bRichTextBox
 {
-    public partial class BRichTextBox : RichTextBox
+    public partial class bRichTextBox : RichTextBox
     {
         /// <summary>
         /// Required designer variable.

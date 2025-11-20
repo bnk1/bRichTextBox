@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
-namespace BRichTextBox
+namespace bRichTextBox
 {
     public static class NativeMethods
     {
