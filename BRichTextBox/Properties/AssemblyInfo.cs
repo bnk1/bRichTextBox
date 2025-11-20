@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("bRichTextBox")]
+[assembly: AssemblyTitle("BRichTextBox")]
 [assembly: AssemblyDescription("Extended RichTextBox with auto scroll, append line, append exc and auto date")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Boaz")]
-[assembly: AssemblyProduct("bRichTextBox")]
+[assembly: AssemblyProduct("BRichTextBox")]
 [assembly: AssemblyCopyright("Copyright ©  2025")]
 [assembly: AssemblyTrademark("None")]
 [assembly: AssemblyCulture("")]

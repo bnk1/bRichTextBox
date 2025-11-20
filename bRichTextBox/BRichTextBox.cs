@@ -4,10 +4,10 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace bRichTextBox
+namespace BRichTextBox
 {
     [ToolboxItem(true)]
-    public partial class bRichTextBox : RichTextBox
+    public partial class BRichTextBox : RichTextBox
     {
         private Point  _ScrollPoint;
         private bool   _Painting      = true;
@@ -27,7 +27,7 @@ namespace bRichTextBox
         [DefaultValue(false)]
         public bool AddDate { get; set; } = false;
 
-        public bRichTextBox()
+        public BRichTextBox()
         {
             InitializeComponent();
         }

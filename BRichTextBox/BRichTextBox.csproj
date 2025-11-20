@@ -7,8 +7,8 @@
     <ProjectGuid>{7C76F2AB-1AC6-4EBC-8F44-E99EB6677193}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>bRichTextBox</RootNamespace>
-    <AssemblyName>bRichTextBox</AssemblyName>
+    <RootNamespace>BRichTextBox</RootNamespace>
+    <AssemblyName>BRichTextBox</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -53,11 +53,11 @@
   <ItemGroup>
     <Compile Include="Helpers\NativeMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="bBrichTextBox.cs">
+    <Compile Include="BRichTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="bBrichTextBox.Designer.cs">
-      <DependentUpon>bBrichTextBox.cs</DependentUpon>
+    <Compile Include="BRichTextBox.Designer.cs">
+      <DependentUpon>BRichTextBox.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -67,7 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
-    <None Include="bRichTextBox.nuspec">
+    <None Include="BRichTextBox.nuspec">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

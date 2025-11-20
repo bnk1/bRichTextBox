@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package >
   <metadata>
-    <id>bRichTextBox</id>
+    <id>BRichTextBox</id>
     <version>1.0.6</version>
-    <title>bRichTextBox</title>
+    <title>BRichTextBox</title>
     <authors>Boaz</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
