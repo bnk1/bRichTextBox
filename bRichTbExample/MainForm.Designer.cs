@@ -45,6 +45,7 @@
             // 
             // AddB
             // 
+            this.AddB.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.142858F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AddB.Location = new System.Drawing.Point(4, 4);
             this.AddB.Margin = new System.Windows.Forms.Padding(4);
             this.AddB.Name = "AddB";
@@ -90,6 +91,7 @@
             // 
             // ColorB
             // 
+            this.ColorB.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.142858F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ColorB.Location = new System.Drawing.Point(159, 4);
             this.ColorB.Margin = new System.Windows.Forms.Padding(4);
             this.ColorB.Name = "ColorB";

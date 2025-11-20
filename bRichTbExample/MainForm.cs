@@ -40,12 +40,15 @@ namespace BRichExample
 
 		private void SetColor(Color color)
 		{
-			ColorB.BackColor = color;
+			ColorB.ForeColor = color;
 
-			if (color == Color.Black)
-				ColorB.ForeColor = Color.White;
+			if (color == Color.White)
+                ColorB.BackColor = Color.Black;
+			else if (color == Color.Black)
+                ColorB.BackColor = Color.White;
 			else
-				ColorB.ForeColor = Color.Black;
-		}
+				ColorB.BackColor = BRichTextBox1.BackColor;
+
+        }
 	}
 }

@@ -1,0 +1,4 @@
+dotnet nuget push BRichTextBox.1.0.9.nupkg ^
+    --api-key %NUGET_API_KEY% ^
+    --source https://api.nuget.org/v3/index.json
+

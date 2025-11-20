@@ -37,6 +37,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BRichTextBox, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\BRichTextBox.1.0.8\lib\net462\BRichTextBox.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -73,6 +76,7 @@
     </Compile>
     <None Include=".editorconfig" />
     <None Include="app.manifest" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
