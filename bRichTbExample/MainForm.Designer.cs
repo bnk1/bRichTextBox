@@ -29,12 +29,12 @@
 		private void InitializeComponent()
 		{
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.AddB = new System.Windows.Forms.Button();
+            this.AddButton = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.BRichTextBox1 = new BRichTextBox.BRichTextBox();
             this.AutoScrollTb = new System.Windows.Forms.CheckBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.ColorB = new System.Windows.Forms.Button();
+            this.bSetColor = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
@@ -43,17 +43,17 @@
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // AddB
+            // ButtonAdd
             // 
-            this.AddB.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.142858F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AddB.Location = new System.Drawing.Point(4, 4);
-            this.AddB.Margin = new System.Windows.Forms.Padding(4);
-            this.AddB.Name = "AddB";
-            this.AddB.Size = new System.Drawing.Size(147, 67);
-            this.AddB.TabIndex = 1;
-            this.AddB.Text = "Add";
-            this.AddB.UseVisualStyleBackColor = true;
-            this.AddB.Click += new System.EventHandler(this.button1_Click);
+            this.AddButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.142858F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AddButton.Location = new System.Drawing.Point(4, 4);
+            this.AddButton.Margin = new System.Windows.Forms.Padding(4);
+            this.AddButton.Name = "ButtonAdd";
+            this.AddButton.Size = new System.Drawing.Size(147, 67);
+            this.AddButton.TabIndex = 1;
+            this.AddButton.Text = "Add";
+            this.AddButton.UseVisualStyleBackColor = true;
+            this.AddButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // textBox1
             // 
@@ -89,17 +89,17 @@
             this.AutoScrollTb.UseVisualStyleBackColor = true;
             this.AutoScrollTb.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
-            // ColorB
+            // ButtonColor
             // 
-            this.ColorB.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.142858F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ColorB.Location = new System.Drawing.Point(159, 4);
-            this.ColorB.Margin = new System.Windows.Forms.Padding(4);
-            this.ColorB.Name = "ColorB";
-            this.ColorB.Size = new System.Drawing.Size(147, 67);
-            this.ColorB.TabIndex = 5;
-            this.ColorB.Text = "Color";
-            this.ColorB.UseVisualStyleBackColor = true;
-            this.ColorB.Click += new System.EventHandler(this.ColorB_Click);
+            this.bSetColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.142858F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bSetColor.Location = new System.Drawing.Point(159, 4);
+            this.bSetColor.Margin = new System.Windows.Forms.Padding(4);
+            this.bSetColor.Name = "ButtonColor";
+            this.bSetColor.Size = new System.Drawing.Size(147, 67);
+            this.bSetColor.TabIndex = 5;
+            this.bSetColor.Text = "Color";
+            this.bSetColor.UseVisualStyleBackColor = true;
+            this.bSetColor.Click += new System.EventHandler(this.ColorB_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -140,8 +140,8 @@
             // 
             this.flowLayoutPanel1.AutoSize = true;
             this.flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.flowLayoutPanel1.Controls.Add(this.AddB);
-            this.flowLayoutPanel1.Controls.Add(this.ColorB);
+            this.flowLayoutPanel1.Controls.Add(this.AddButton);
+            this.flowLayoutPanel1.Controls.Add(this.bSetColor);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -171,12 +171,12 @@
 
 		#endregion
 
-		private System.Windows.Forms.Button AddB;
+		private System.Windows.Forms.Button AddButton;
 		private System.Windows.Forms.TextBox textBox1;
 		private BRichTextBox.BRichTextBox BRichTextBox1;
 		private System.Windows.Forms.CheckBox AutoScrollTb;
 		private System.Windows.Forms.ColorDialog colorDialog1;
-		private System.Windows.Forms.Button ColorB;
+		private System.Windows.Forms.Button bSetColor;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
