@@ -25,9 +25,7 @@ namespace ButtonBackColorExtensions
         public static void SetForeColorWithAutoBack(this Button btn, Color foreColor)
         {
             if (btn == null)
-            {
                 throw new ArgumentNullException(nameof(btn));
-            }
 
             btn.ForeColor = foreColor;
             btn.EnsureReadableBackColor();
@@ -40,9 +38,7 @@ namespace ButtonBackColorExtensions
         public static void EnsureReadableBackColor(this Button btn)
         {
             if (btn == null)
-            {
                 throw new ArgumentNullException(nameof(btn));
-            }
 
             ButtonColorState state = GetOrCreateState(btn);
             Color originalBack = state.OriginalBackColor;
