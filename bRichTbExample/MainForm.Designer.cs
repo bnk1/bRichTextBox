@@ -28,9 +28,10 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.AddB = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.bRichTextBox1 = new BRichTextBox.BRichTextBox();
+            this.BRichTextBox1 = new BRichTextBox.BRichTextBox();
             this.AutoScrollTb = new System.Windows.Forms.CheckBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.ColorB = new System.Windows.Forms.Button();
@@ -62,15 +63,15 @@
             this.textBox1.TabIndex = 2;
             this.textBox1.Text = "xxxxxxxxxxxxxxx";
             // 
-            // bRichTextBox1
+            // BRichTextBox1
             // 
-            this.bRichTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bRichTextBox1.Location = new System.Drawing.Point(4, 4);
-            this.bRichTextBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.bRichTextBox1.Name = "bRichTextBox1";
-            this.bRichTextBox1.Size = new System.Drawing.Size(828, 116);
-            this.bRichTextBox1.TabIndex = 3;
-            this.bRichTextBox1.Text = "";
+            this.BRichTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BRichTextBox1.Location = new System.Drawing.Point(4, 4);
+            this.BRichTextBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.BRichTextBox1.Name = "BRichTextBox1";
+            this.BRichTextBox1.Size = new System.Drawing.Size(828, 116);
+            this.BRichTextBox1.TabIndex = 3;
+            this.BRichTextBox1.Text = "";
             // 
             // AutoScrollTb
             // 
@@ -106,7 +107,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.bRichTextBox1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.BRichTextBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.AutoScrollTb, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -152,9 +153,10 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1186, 162);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
-            this.Text = "bRichExample";
+            this.Text = "BRichExample";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -169,7 +171,7 @@
 
 		private System.Windows.Forms.Button AddB;
 		private System.Windows.Forms.TextBox textBox1;
-		private BRichTextBox.BRichTextBox bRichTextBox1;
+		private BRichTextBox.BRichTextBox BRichTextBox1;
 		private System.Windows.Forms.CheckBox AutoScrollTb;
 		private System.Windows.Forms.ColorDialog colorDialog1;
 		private System.Windows.Forms.Button ColorB;

@@ -37,9 +37,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="bRichTextBox, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="bRichTextBox, Version=1.0.5.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\bRichTextBox\bin\Release\bRichTextBox.dll</HintPath>
+      <HintPath>..\bRichTextBox\bin\Release\net462\bRichTextBox.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

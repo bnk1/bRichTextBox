@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bRichExample", "bRichExample.csproj", "{6CB2142F-1CE6-409C-AF47-AB43E0A7ABD4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BRichExample", "BRichExample.csproj", "{6CB2142F-1CE6-409C-AF47-AB43E0A7ABD4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

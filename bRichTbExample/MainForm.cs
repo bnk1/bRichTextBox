@@ -18,18 +18,18 @@ namespace bRichExample
 		{
 			InitializeComponent();
 			SetColor(colorDialog1.Color);
-            bRichTextBox1.AutoScroll = AutoScrollTb.Checked;
+            BRichTextBox1.AutoScroll = AutoScrollTb.Checked;
         }
 
 		private void button1_Click(Object sender, EventArgs e)
 		{
-			bRichTextBox1.AddDate = true;
-			bRichTextBox1.AppendLine(textBox1.Text + " " + count++, colorDialog1.Color);
+			BRichTextBox1.AddDate = true;
+			BRichTextBox1.AppendLine(textBox1.Text + " " + count++, colorDialog1.Color);
 		}
 
 		private void checkBox1_CheckedChanged(Object sender, EventArgs e)
 		{
-			bRichTextBox1.AutoScroll = ((CheckBox)sender).Checked;
+			BRichTextBox1.AutoScroll = ((CheckBox)sender).Checked;
 		}
 
 		private void ColorB_Click(Object sender, EventArgs e)
