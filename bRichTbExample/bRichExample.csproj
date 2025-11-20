@@ -37,8 +37,8 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BRichTextBox, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\BRichTextBox.1.0.6\lib\net462\BRichTextBox.dll</HintPath>
+    <Reference Include="BRichTextBox, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\BRichTextBox.1.0.7\lib\net462\BRichTextBox.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

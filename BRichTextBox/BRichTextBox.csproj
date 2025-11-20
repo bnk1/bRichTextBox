@@ -1,26 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <TargetFrameworks>net462;net8.0-windows</TargetFrameworks>
+    <TargetFrameworks>net40;net462;net8.0-windows</TargetFrameworks>
     <UseWindowsForms>true</UseWindowsForms>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
-    <AssemblyName>bRichTextBox</AssemblyName>
+    <AssemblyName>BRichTextBox</AssemblyName>
     <RootNamespace>BRichTextBox</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>BRichTextBox</PackageId>
-    <Version>1.0.6</Version>
-    <Authors>YourName</Authors>
-    <Company>YourCompany</Company>
+    <Version>1.0.7</Version>
+    <Authors>Boaz</Authors>
     <Product>BRichTextBox</Product>
     <Description>
       Extended WinForms RichTextBox with colored log lines, exception helpers,
-      auto-scroll and optional timestamps.
+      auto-scroll and optional timestamps. Targets .NET 4.0 and newer.
     </Description>
     <PackageTags>winforms;richtextbox;logging;text;control</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <LocalNuGetFolder>C:\LocalNuGet\</LocalNuGetFolder>
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
+
+  <!-- After packing, automatically copy the .nupkg into your local feed -->
+  <Target Name="CopyNupkgToLocalFeed" AfterTargets="Pack">
+    <ItemGroup>
+      <BuiltPackages Include="$(PackageOutputPath)\$(PackageId).$(Version).nupkg" />
+    </ItemGroup>
+    <Copy SourceFiles="@(BuiltPackages)" DestinationFolder="$(LocalNuGetFolder)" />
+  </Target>
+
 </Project>
