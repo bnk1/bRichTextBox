@@ -2,10 +2,10 @@
 setlocal
 
 REM Folder of this script = solution folder
-set SOLUTION_DIR=f:\Code\BRichTextBox\
+set SOLUTION_DIR=%~dp0
 
 REM Path to the project file (adjust if different)
-set PROJECT=%SOLUTION_DIR%BRichTextBox\BRichTextBox.csproj
+set PROJECT=%SOLUTION_DIR%BRichTextBox.csproj
 
 REM Ensure API key is available via environment variable
 if "%NUGET_API_KEY%"=="" (
@@ -28,7 +28,7 @@ if "%PKG_VERSION%"=="" (
     exit /b 1
 )
 
-set NUPKG_PATH=%SOLUTION_DIR%BRichTextBox\bin\Release\BRichTextBox.%PKG_VERSION%.nupkg
+set NUPKG_PATH=%SOLUTION_DIR%bin\Release\BRichTextBox.%PKG_VERSION%.nupkg
 
 if not exist "%NUPKG_PATH%" (
     echo ERROR: Package not found: %NUPKG_PATH%
@@ -38,10 +38,24 @@ if not exist "%NUPKG_PATH%" (
 )
 
 echo === Pushing BRichTextBox.%PKG_VERSION%.nupkg to nuget.org ===
-dotnet nuget push "%NUPKG_PATH%" --api-key "%NUGET_API_KEY%" --source https://api.nuget.org/v3/index.json
+dotnet nuget push "%NUPKG_PATH%" --api-key "%NUGET_API_KEY%" --source https://api.nuget.org/v3/index.json  --skip-duplicate
 if errorlevel 1 goto :error
 
+set SNUPKG_PATH=%SOLUTION_DIR%bin\Release\BRichTextBox.%PKG_VERSION%.snupkg
+
+if exist "%SNUPKG_PATH%" (
+    echo === Pushing symbols BRichTextBox.%PKG_VERSION%.snupkg ===
+    dotnet nuget push "%SNUPKG_PATH%" --api-key "%NUGET_API_KEY%" --source https://api.nuget.org/v3/index.json  --skip-duplicate
+    if errorlevel 1 goto :error
+)
+
 echo === Publish completed successfully (version %PKG_VERSION%) ===
+
+echo === Tagging release v%PKG_VERSION% ===
+set SOLUTION_DIR_NOTRIM=%SOLUTION_DIR:~0,-1%
+git -C "%SOLUTION_DIR_NOTRIM%" tag v%PKG_VERSION%
+git -C "%SOLUTION_DIR_NOTRIM%" push origin v%PKG_VERSION%
+
 pause
 exit /b 0
 
