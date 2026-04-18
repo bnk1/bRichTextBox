@@ -38,15 +38,18 @@ if not exist "%NUPKG_PATH%" (
 )
 
 echo === Pushing BRichTextBox.%PKG_VERSION%.nupkg to nuget.org ===
-dotnet nuget push "%NUPKG_PATH%" --api-key "%NUGET_API_KEY%" --source https://api.nuget.org/v3/index.json  --skip-duplicate
+dotnet nuget push "%NUPKG_PATH%" --api-key "%NUGET_API_KEY%" --source https://api.nuget.org/v3/index.json
 if errorlevel 1 goto :error
 
 set SNUPKG_PATH=%SOLUTION_DIR%bin\Release\BRichTextBox.%PKG_VERSION%.snupkg
 
 if exist "%SNUPKG_PATH%" (
     echo === Pushing symbols BRichTextBox.%PKG_VERSION%.snupkg ===
-    dotnet nuget push "%SNUPKG_PATH%" --api-key "%NUGET_API_KEY%" --source https://api.nuget.org/v3/index.json  --skip-duplicate
-    if errorlevel 1 goto :error
+    dotnet nuget push "%SNUPKG_PATH%" --api-key "%NUGET_API_KEY%" --source https://api.nuget.org/v3/index.json
+    if errorlevel 1 (
+        echo WARNING: Symbols push failed ^(symbols server may be busy^). Package published successfully.
+        echo To retry: dotnet nuget push "%SNUPKG_PATH%" --api-key %%NUGET_API_KEY%% --source https://api.nuget.org/v3/index.json
+    )
 )
 
 echo === Publish completed successfully (version %PKG_VERSION%) ===
@@ -61,5 +64,4 @@ exit /b 0
 
 :error
 echo === Publish FAILED ===
-pause
 exit /b 1

@@ -8,7 +8,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageId>BRichTextBox</PackageId>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Version>1.1.4</Version>
+    <Version>1.1.7</Version>
     <Authors>Boaz</Authors>
     <Product>BRichTextBox</Product>
     <Description>
