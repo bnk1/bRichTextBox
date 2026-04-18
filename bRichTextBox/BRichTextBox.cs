@@ -10,7 +10,7 @@ namespace BRichTextBox
     public partial class BRichTextBox : RichTextBox
     {
         private Point  _ScrollPoint;
-        private bool   _Painting      = true;
+        private int    _SuspendCount  = 0;
         private IntPtr _EventMask;
         private int    _SuspendIndex  = 0;
         private int    _SuspendLength = 0;
@@ -18,8 +18,8 @@ namespace BRichTextBox
         /// <summary>
         /// If true, the control will scroll to the bottom after appending text.
         /// </summary>
-        [DefaultValue(false)]
-        public bool AutoScroll { get; set; } = false;
+        [DefaultValue(true)]
+        public bool AutoScrollToBottom { get; set; } = true;
 
         /// <summary>
         /// If true, each appended line will start with the current date/time.
@@ -30,11 +30,6 @@ namespace BRichTextBox
         public BRichTextBox()
         {
             InitializeComponent();
-        }
-
-        protected override void OnPaint(PaintEventArgs pe)
-        {
-            base.OnPaint(pe);
         }
 
         public void AppendExc(Exception exc, bool detailed = false)
@@ -62,7 +57,10 @@ namespace BRichTextBox
 
         public void AppendExc(Exception exc)
         {
-            AppendLine(exc?.Message ?? string.Empty, Color.Red);
+            if (exc == null)
+			 return;
+			 
+            AppendLine(exc.Message, Color.Red);
         }
 
         public void AppendErr(string text)
@@ -92,27 +90,28 @@ namespace BRichTextBox
 
         public void SuspendPainting()
         {
-            if (_Painting)
+            if (_SuspendCount++ == 0)
             {
-                _SuspendIndex = SelectionStart;
+                _SuspendIndex  = SelectionStart;
                 _SuspendLength = SelectionLength;
 
                 NativeMethods.SendMessage(Handle, NativeMethods.EM_GETSCROLLPOS, 0, ref _ScrollPoint);
                 NativeMethods.SendMessage(Handle, NativeMethods.WM_SETREDRAW, 0, IntPtr.Zero);
                 _EventMask = NativeMethods.SendMessage(Handle, NativeMethods.EM_GETEVENTMASK, 0, IntPtr.Zero);
-                _Painting = false;
             }
         }
 
         public void ResumePainting()
         {
-            if (!_Painting)
+            if (_SuspendCount == 0)
+				return;
+
+            if (--_SuspendCount == 0)
             {
                 Select(_SuspendIndex, _SuspendLength);
                 NativeMethods.SendMessage(Handle, NativeMethods.EM_SETSCROLLPOS, 0, ref _ScrollPoint);
                 NativeMethods.SendMessage(Handle, NativeMethods.EM_SETEVENTMASK, 0, _EventMask);
                 NativeMethods.SendMessage(Handle, NativeMethods.WM_SETREDRAW, 1, IntPtr.Zero);
-                _Painting = true;
                 Invalidate();
             }
         }
@@ -124,32 +123,30 @@ namespace BRichTextBox
         /// <param name="c">Foreground color (null = default).</param>
         /// <param name="printPrefix">If true, prepend '&gt;'.</param>
         /// <param name="newlinePre">If true, prepend a newline before the text.</param>
-        /// <param name="forceAutoScroll">
-        /// If true, forces scroll to bottom even if AutoScroll is false.
-        /// </param>
-        /// <param name="addDate">
-        /// If true, prepend the current date/time (or uses AddDate property).
+        /// <param name="scrollToBottom">If true, forces scroll to bottom even if AutoScroll is false.</param>
+        /// <param name="addDate"> If true, prepend the current date/time (or uses AddDate property).
         /// </param>
         private void AppendTextBox(
-            string text,
-            Color? c = null,
-            bool printPrefix = false,
-            bool newlinePre = false,
-            bool forceAutoScroll = false,
-            bool addDate = false)
+            string  text,
+            Color?  c              = null,
+            bool    printPrefix    = false,
+            bool    newlinePre     = false,
+            bool    scrollToBottom = false,
+            bool    addDate        = false)
         {
             Color color = c ?? ForeColor;
 
             if (InvokeRequired)
             {
-                BeginInvoke(
-                    new Action<string, Color?, bool, bool, bool, bool>(AppendTextBox),
-                    text,
-                    color,
-                    printPrefix,
-                    newlinePre,
-                    forceAutoScroll,
-                    addDate);
+                if (!IsDisposed)
+                    BeginInvoke(
+                        new Action<string, Color?, bool, bool, bool, bool>(AppendTextBox),
+                        text,
+                        color,
+                        printPrefix,
+                        newlinePre,
+                        scrollToBottom,
+                        addDate);
                 return;
             }
 
@@ -176,7 +173,7 @@ namespace BRichTextBox
                 AppendText(">");
             }
 
-            bool autoScrollEffective = forceAutoScroll || AutoScroll;
+            bool autoScrollEffective = scrollToBottom || AutoScrollToBottom;
 
             if (!autoScrollEffective)
             {
