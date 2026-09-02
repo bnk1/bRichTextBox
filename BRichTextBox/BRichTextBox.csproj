@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <TargetFrameworks>net40;net462;net8.0-windows</TargetFrameworks>
+    <TargetFrameworks>net40;net462;net8.0-windows;net10.0-windows</TargetFrameworks>
     <UseWindowsForms>true</UseWindowsForms>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
     <AssemblyName>BRichTextBox</AssemblyName>
@@ -8,12 +8,12 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageId>BRichTextBox</PackageId>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Version>1.1.7</Version>
+    <Version>1.1.8</Version>
     <Authors>Boaz</Authors>
     <Product>BRichTextBox</Product>
     <Description>
       Extended WinForms RichTextBox with colored log lines, exception helpers,
-      auto-scroll and optional timestamps. Targets .NET 4.0 and newer.
+      auto-scroll and optional timestamps. Targets .NET 4.0, .NET Framework 4.6.2, .NET 8, and .NET 10.
     </Description>
     <PackageTags>winforms;richtextbox;logging;text;control</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

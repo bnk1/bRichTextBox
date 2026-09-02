@@ -13,7 +13,7 @@ Extended WinForms `RichTextBox` with colored log lines, exception helpers, auto-
 
 ## Targets
 
-.NET 4.0, .NET 4.6.2, .NET 8 (Windows)
+.NET 4.0, .NET Framework 4.6.2, .NET 8 (Windows), .NET 10 (Windows)
 
 ## License
 
